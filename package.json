@@ -16,7 +16,7 @@
     "dist"
   ],
   "engines": {
-    "node": ">=18"
+    "node": ">= 24.14.0"
   },
   "scripts": {
     "build": "tsc",
@@ -28,6 +28,9 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "test:coverage": "vitest run --coverage",
+    "changeset": "changeset",
+    "version": "changeset version",
+    "release": "npm run build && changeset publish",
     "prepare": "husky"
   },
   "dependencies": {},
@@ -47,6 +50,7 @@
     "tsx": "^4.0.0",
     "typescript": "^6.0.3",
     "typescript-eslint": "^8.0.0",
+    "@changesets/cli": "^2.31.0",
     "vitest": "^3.0.0"
   }
 }
