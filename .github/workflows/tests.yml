@@ -3,6 +3,7 @@ name: Tests
 on:
   push:
   pull_request:
+  workflow_dispatch:
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.head_ref || github.run_id }}
@@ -13,8 +14,21 @@ jobs:
     name: Tests
     runs-on: ubuntu-latest
     steps:
+      - name: Wait for Format
+        if: github.event_name != 'workflow_dispatch'
+        continue-on-error: true
+        timeout-minutes: 3
+        uses: lewagon/wait-on-check-action@v1.8.0
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          check-name: Format
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          wait-interval: 10
+
       - name: Checkout repository
         uses: actions/checkout@v6
+        with:
+          ref: ${{ github.head_ref || github.ref }}
 
       - name: Install Node.js v24
         uses: actions/setup-node@v6
@@ -24,6 +38,9 @@ jobs:
 
       - name: Install dependencies
         run: npm ci
+
+      - name: Check formatting
+        run: npm run format:check
 
       - name: Run ESLint
         run: npm run lint

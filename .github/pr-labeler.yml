@@ -39,7 +39,7 @@ build:
       - any-glob-to-any-file:
           - tsconfig*.json
           - eslint.config.js
-          - .prettierrc
+          - prettier.config.js
           - .prettierignore
           - .editorconfig
           - .gitignore
