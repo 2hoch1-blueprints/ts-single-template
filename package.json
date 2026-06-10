@@ -4,30 +4,19 @@
   "version": "0.0.1",
   "description": "A TypeScript project template.",
   "type": "module",
-  "main": "./dist/index.js",
-  "types": "./dist/index.d.ts",
-  "exports": {
-    ".": {
-      "types": "./dist/index.d.ts",
-      "import": "./dist/index.js"
-    }
-  },
-  "files": [
-    "dist"
-  ],
   "engines": {
     "node": ">= 24.14.0"
   },
   "scripts": {
     "build": "tsc",
     "typecheck": "tsc --noEmit",
-    "lint": "eslint src tests",
-    "lint:fix": "eslint src tests --fix",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
     "format": "prettier --write --no-error-on-unmatched-pattern \"src/**/*.{ts,tsx,mts}\" \"tests/**/*.{ts,tsx,mts}\" \"*.{json,md,yml,yaml}\" \".github/**/*.{yml,yaml,json,md}\"",
     "format:check": "prettier --check --no-error-on-unmatched-pattern \"src/**/*.{ts,tsx,mts}\" \"tests/**/*.{ts,tsx,mts}\" \"*.{json,md,yml,yaml}\" \".github/**/*.{yml,yaml,json,md}\"",
-    "test": "vitest run",
+    "test": "vitest run --passWithNoTests",
     "test:watch": "vitest",
-    "test:coverage": "vitest run --coverage",
+    "test:coverage": "vitest run --coverage --passWithNoTests",
     "changeset": "changeset",
     "version": "changeset version",
     "release": "npm run build && changeset publish",
